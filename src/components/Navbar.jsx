@@ -1,5 +1,3 @@
-
-
 import React, { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -15,17 +13,17 @@ const Navbar = () => {
     setIsOpen(!isOpen);
   };
 
-  const toggleDropdown = (state) => {
-    setIsDropdownOpenAvtar(state);
-  };
   const teamMemberName = "John Doe";
   return (
-    <nav className="sticky top-0 z-50 bg-white shadow-md border-b-2 border-warning-dark font-sans">
+    <nav className="fixed top-0 z-50 w-full bg-white shadow-md border-b-2 border-warning-dark font-sans">
       <TopInfoBar />
-      <div className="max-w-7xl mx-auto px-4 ">
+      <div className="max-w-7xl mx-auto px-10">
         <div className="flex items-center justify-between h-14 ">
           <div className="flex items-center gap-8">
-            <Link to="/" className="text-xl font-bold text-gray-800">
+            <Link
+              to="/blaze/dashboard"
+              className="text-xl font-bold text-gray-800"
+            >
               <img src={logo} alt="logo" className="h-[35px] object-contain" />
             </Link>
             {/* Bookings with Dropdown */}
@@ -98,9 +96,17 @@ const Navbar = () => {
                 </div>
               </div>
               <div className="flex items-center">
-              <Link to="/" className="text-xl font-bold text-gray-800">
-              <img src={logo2} alt="logo" className="h-[35px] object-contain" />
-            </Link></div>
+                <Link
+                  to="/blaze/dashboard"
+                  className="text-xl font-bold text-gray-800"
+                >
+                  <img
+                    src={logo2}
+                    alt="logo"
+                    className="h-[35px] object-contain"
+                  />
+                </Link>
+              </div>
             </div>
           </div>
           <div className="md:hidden">
@@ -119,32 +125,62 @@ const Navbar = () => {
       </div>
 
       {isOpen && (
-        <div className="md:hidden">
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            <Link
-              to="/"
-              className="text-gray-600 hover:text-gray-800 block px-3 py-2 rounded-md text-base font-medium"
+        <div className="md:hidden flex justify-end items-end">
+          <div className="mx-5 flex flex-col items-start space-x-4 my-2">
+            <div
+              className="relative text-gray-600 flex items-center gap-4 "
+              onMouseEnter={() => setIsDropdownOpenAvtar(true)}
+              onMouseLeave={() => setIsDropdownOpenAvtar(false)}
             >
-              Home
-            </Link>
-            <Link
-              to="/about"
-              className="text-gray-600 hover:text-gray-800 block px-3 py-2 rounded-md text-base font-medium"
-            >
-              About
-            </Link>
-            <Link
-              to="/services"
-              className="text-gray-600 hover:text-gray-800 block px-3 py-2 rounded-md text-base font-medium"
-            >
-              Services
-            </Link>
-            <Link
-              to="/contact"
-              className="text-gray-600 hover:text-gray-800 block px-3 py-2 rounded-md text-base font-medium"
-            >
-              Contact
-            </Link>
+              <div className="relative text-gray-600 flex items-center cursor-pointer">
+                {/* Avatar with Initial */}
+                <div className="flex items-center justify-center w-8 h-8 bg-warning-dark text-white font-semibold rounded-full">
+                  {teamMemberName.charAt(0).toUpperCase()}
+                </div>
+                <span className="ml-2 text-gray-700 font-medium">
+                  {teamMemberName}
+                </span>
+
+                {/* Dropdown Menu */}
+                {isDropdownOpenAvtar && (
+                  <div className=" ml-10 absolute top-full right-0  w-48 bg-white shadow-lg rounded-md border border-gray-200 py-1">
+                    <Link
+                      to="/manage-profile"
+                      className="block px-4 py-1 text-gray-700 hover:border-l-2 hover:border-warning-dark hover:bg-gray-100 duration-300"
+                    >
+                      Manage Profile
+                    </Link>
+                    <Link
+                      to="/change-password"
+                      className="block px-4 py-1 text-gray-700 hover:border-l-2 hover:border-warning-dark hover:bg-gray-100 duration-300 "
+                    >
+                      Change Password
+                    </Link>
+                    <button
+                      className="block px-4 py-1 text-gray-700 hover:border-l-2 hover:border-warning-dark hover:bg-gray-100 duration-300 w-full text-start"
+                      onClick={() => {
+                        console.log("Logout logic here");
+                      }}
+                    >
+                      Logout
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div className="flex items-center my-1">
+              <Link
+                to="/blaze/dashboard"
+                className="text-xl font-bold text-gray-800"
+              >
+                <img
+                  src={logo2}
+                  alt="logo"
+                  className="h-[35px] object-contain"
+                />
+              </Link>
+            </div>
           </div>
         </div>
       )}

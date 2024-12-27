@@ -9,7 +9,7 @@ const MainLeyout = () => {
           <Navbar />
         </header>
         {/* main containt on middle it will take left size of screen  */}
-        <div className="flex-1">
+        <div className="flex-1 mt-24">
           <Outlet />
         </div>
 
